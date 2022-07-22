@@ -1,7 +1,9 @@
-# pywm
+# pywannamaker
 A python package for parsing and serializing I Wanna Maker maps from and back to their XML format.
 
 ## Usage
+Importing the `pywm` module imports all required submodules.
+
 ### Opening maps
 Several functions load and parse a map.
 

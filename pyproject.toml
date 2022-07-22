@@ -2,7 +2,7 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
-name = "pywm"
+name = "pywannamaker"
 version = "0.0.1"
 authors = [
   { name="iwVerve", email="thedolphiner@gmail.com" },
