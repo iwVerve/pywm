@@ -4,11 +4,12 @@ from .event import Event
 from .enum import ObjectType
 
 class Object:
-    def __init__(self, type: int =ObjectType.BLOCK, x: int =0, y: int =0, sprite_angle: int =0, params: 'dict[str, str]' =None, events: 'list[Event]' =None, children: 'list[Object]' =None, linked: 'list[Object]' =None) -> None:
+    def __init__(self, type: int =ObjectType.BLOCK, x: int =0, y: int =0, sprite_angle: int =0, name: str ='', params: 'dict[str, str]' =None, events: 'list[Event]' =None, children: 'list[Object]' =None, linked: 'list[Object]' =None) -> None:
         self.type = type
         self.x = x
         self.y = y
         self.sprite_angle = sprite_angle
+        self.name = name
         self.params = params
         if params is None:
             self.params = {}
@@ -41,5 +42,7 @@ class Object:
             out += c.serialize(1)
         for l in self.linked:
             out += l.serialize(2, self)
+        if self.name != '':
+            out += f'<name>{self.name}</name>'
         out += f'</{tag}>'
         return out

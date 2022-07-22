@@ -2,14 +2,14 @@
 A python package for parsing and serializing I Wanna Maker maps from and back to their XML format.
 
 ## Usage
-Importing the `pywm` module imports all required submodules.
+Importing the `pywannamaker` module imports all required submodules.
 
 ### Opening maps
 Several functions load and parse a map.
 
-- `pywm.parseFile` does so from a file object or file path.
-- `pywm.parseLocal` opens a map with the provided name in the actual game maps folder (specified in config.py).
-- `pywm.parseString` opens a map from the provided string.
+- `parseFile` does so from a file object or file path.
+- `parseLocal` opens a map with the provided name in the actual game maps folder (specified in config.py).
+- `parseString` opens a map from the provided string.
 
 Worth noting is that each of these functions can correctly open any non-param element, meaning you can e.g. store individual objects in files.
 
@@ -40,6 +40,7 @@ Worth noting is that each of these functions can correctly open any non-param el
     - `x: int`
     - `y: int`
     - `sprite_angle: int`
+    - `name: str` - empty string if unnamed
     - `params: dict[str, str]`
     - `events: [Event]`
     - `children: [Object]`
@@ -51,12 +52,14 @@ Worth noting is that each of these functions can correctly open any non-param el
 
 ### Examples
 ```
+import pywannamaker as pywm
 m = pywm.Map()
 m.saveLocal('empty.map')
 ```
 Creates a new map and saves it.
 
 ```
+import pywannamaker as pywm
 m = pywm.parseLocal('input.map')
 for o in m.objects:
     o.x = float(m.properties.width) - o.x
@@ -64,7 +67,7 @@ for o in m.objects:
 Mirrors a level horizontally
 
 ```
-from pywm import Object, Event, ObjectType, EventType, ActionType
+from pywannamaker import Object, Event, ObjectType, EventType, ActionType
 cannon = Object(ObjectType.CANNON, 400, 304)
 onmetronome = Event(EventType.ONMETRONOMETICK)
 onmetronome.params['frames'] = 25
@@ -72,3 +75,14 @@ onmetronome.events.append(Event(ActionType.FIRECANNON))
 cannon.events.append(onmetronome)
 ```
 Creates a new cannon object, and gives it an On metronome -> Fire event.
+
+```
+import pywannamaker as pywm
+m = pywm.parseLocal('input.map')
+target = None
+for o in m.objects:
+    if o.name == 'target':
+        target = o
+        break
+```
+Find an object in a map according to its name. Note this does not check any child objects. e.g. objects inside cannons

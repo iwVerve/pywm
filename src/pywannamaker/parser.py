@@ -37,6 +37,9 @@ def parse(node: Element) -> Optional[Union[Map, Properties, Object, Event]]:
         y = float(node.getAttribute('y')) if node.hasAttribute('y') else 0
         object_type = int(node.getAttribute('type')) if node.hasAttribute('type') else 0
         sprite_angle = int(node.getAttribute('sprite_angle')) if node.hasAttribute('sprite_angle') else 0
+        name = ''
+        if node.getElementsByTagName('name'):
+            name = node.getElementsByTagName('name')[0].childNodes[0].nodeValue
         params = get_params(node)
         events = []
         children = []
@@ -49,7 +52,7 @@ def parse(node: Element) -> Optional[Union[Map, Properties, Object, Event]]:
                 children.append(o)
             elif n.tagName == 'global_obj':
                 linked.append(o)
-        return Object(object_type, x, y, sprite_angle, params, events, children, linked)
+        return Object(object_type, x, y, sprite_angle, name, params, events, children, linked)
     elif tag_name == 'event':
         event_index = node.getAttribute('eventIndex') if node.hasAttribute('eventIndex') else '0'
         params = get_params(node)
