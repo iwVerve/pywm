@@ -2,7 +2,7 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
-name = "pywm_iwVerve"
+name = "pywm"
 version = "0.0.1"
 authors = [
   { name="iwVerve", email="thedolphiner@gmail.com" },
@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/pypa/sampleproject"
-"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+"Homepage" = "https://github.com/iwVerve/pywm"
+"Bug Tracker" = "https://github.com/iwVerve/pywm/issues"

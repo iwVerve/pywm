@@ -1,8 +1,6 @@
-from .param import Param
-
 class Event:
-    def __init__(self, eventIndex: int =-1, params: 'dict[str, str]' =None, events: 'list[Event]' =None) -> None:
-        self.eventIndex = eventIndex
+    def __init__(self, event_index: int =-1, params: 'dict[str, str]' =None, events: 'list[Event]' =None) -> None:
+        self.event_index = event_index
         self.params = params
         if params is None:
             self.params = {}
@@ -14,7 +12,7 @@ class Event:
         return self.serialize()
 
     def serialize(self) -> str:
-        out = f'<event eventIndex="{self.eventIndex}">'
+        out = f'<event eventIndex="{self.event_index}">'
         for key, val in self.params.items():
             out += f'<param key="{key}" val="{val}">'
         for e in self.events:

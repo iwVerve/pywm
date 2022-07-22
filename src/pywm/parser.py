@@ -1,6 +1,5 @@
 import os
 from . import config
-from .param import Param
 from .event import Event
 from .object import Object
 from .properties import Properties
@@ -17,7 +16,7 @@ def get_params(node: Element) -> 'dict[str, str]':
         params[key] = value
     return params
 
-def parse(node: Element) -> Optional[Union[Map, Properties, Object, Event, Param]]:
+def parse(node: Element) -> Optional[Union[Map, Properties, Object, Event]]:
     tag_name = node.tagName
     if tag_name == 'sfm_map':
         p = parse(node.childNodes[0])
@@ -61,11 +60,11 @@ def parse(node: Element) -> Optional[Union[Map, Properties, Object, Event, Param
                 events.append(o)
         return Event(event_index, params, events)
 
-def parseFile(file_or_path) -> Optional[Union[Map, Properties, Object, Event, Param]]:
+def parseFile(file_or_path) -> Optional[Union[Map, Properties, Object, Event]]:
     return parse(parseXml(file_or_path).childNodes[0])
 
-def parseLocal(name) -> Optional[Union[Map, Properties, Object, Event, Param]]:
+def parseLocal(name) -> Optional[Union[Map, Properties, Object, Event]]:
     return parseFile(f'{config.local_path}{name}')
 
-def parseString(string: str) -> Optional[Union[Map, Properties, Object, Event, Param]]:
+def parseString(string: str) -> Optional[Union[Map, Properties, Object, Event]]:
     return parse(parseXmlString(string).childNodes[0])

@@ -1,6 +1,5 @@
 from math import dist, atan2, degrees
 from typing import Optional
-from .param import Param
 from .event import Event
 from .enum import ObjectType
 
